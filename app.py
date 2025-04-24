@@ -9,7 +9,7 @@ st.set_page_config(page_title="Health App", layout="centered", page_icon="🧮")
 st.markdown("""
     <style>
         html, body, .main {
-            background-image: url('https://i.pinimg.com/736x/d5/f2/84/d5f284d6d139dad2eecee48f935aad43.jpg');  /* 🌅 Replace with your image */
+            background-image: url('https://i.pinimg.com/736x/f6/90/50/f69050f265fef3ff349423d2bdd723ef.jpg');  /* 🌅 Replace with your image */
             background-size: cover;
             background-position: center;
             font-family: 'Segoe UI', sans-serif;
