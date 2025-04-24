@@ -2,8 +2,6 @@
 
 FitFusion is a Streamlit based health application designed to help users calculate and monitor various health metrics, including BMI, age, BMR, water intake, and ideal weight. It also provides daily health tips to encourage the user a healthier lifestyle.
 
----
-
 ## Features
 
 ### 1. 🏋️ BMI Calculator
