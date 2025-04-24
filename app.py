@@ -9,12 +9,22 @@ st.set_page_config(page_title="Health App", layout="centered", page_icon="🧮")
 st.markdown("""
     <style>
         html, body, .main {
-            background: linear-gradient(to right, #e3f2fd, #fce4ec);
+            background-image: url('https://i.pinimg.com/736x/d5/f2/84/d5f284d6d139dad2eecee48f935aad43.jpg');  /* 🌅 Replace with your image */
+            background-size: cover;
+            background-position: center;
             font-family: 'Segoe UI', sans-serif;
+        }
+        [data-testid="stSidebar"] {
+            background-image: url('https://img.freepik.com/free-vector/abstract-background_53876-90689.jpg?semt=ais_hybrid&w=740');  /* 📘 Replace with your image */
+            background-size: cover;
+            background-position: center;
         }
         .block-container {
             padding-top: 2rem;
             padding-bottom: 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
         }
         h1, h2, h3 {
             color: #2c3e50;
