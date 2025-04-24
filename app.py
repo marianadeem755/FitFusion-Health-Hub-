@@ -8,56 +8,63 @@ st.set_page_config(page_title="Health App", layout="centered", page_icon="🧮")
 # ---- Custom Global CSS ----
 st.markdown("""
     <style>
-        html, body, .main {
-            background-image: url('https://i.pinimg.com/736x/f6/90/50/f69050f265fef3ff349423d2bdd723ef.jpg');  /* 🌅 Replace with your image */
-            background-size: cover;
-            background-position: center;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        [data-testid="stSidebar"] {
-            background-image: url('https://img.freepik.com/free-vector/abstract-background_53876-90689.jpg?semt=ais_hybrid&w=740');  /* 📘 Replace with your image */
-            background-size: cover;
-            background-position: center;
-        }
-        .block-container {
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-        h1, h2, h3 {
-            color: #2c3e50;
-            text-align: center;
-            font-weight: bold;
-        }
-        .stButton>button {
-            background-color: #6a1b9a;
-            color: white;
-            border-radius: 12px;
-            padding: 0.5em 1em;
-            font-weight: bold;
-            transition: 0.3s ease-in-out;
-        }
-        .stButton>button:hover {
-            background-color: #ab47bc;
-            transform: scale(1.05);
-        }
-        .stSelectbox, .stNumberInput, .stDateInput, .stTextInput {
-            border-radius: 10px;
-            padding: 10px;
-            background-color: #ffffff !important;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .metric-box {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-bottom: 20px;
-        }
-    </style>
+    .stApp {
+        background-image: url('https://i.pinimg.com/736x/f6/90/50/f69050f265fef3ff349423d2bdd723ef.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    [data-testid="stSidebar"] {
+        background-image: url('https://img.freepik.com/free-vector/abstract-background_53876-90689.jpg?semt=ais_hybrid&w=740');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h1, h2, h3 {
+        color: #2c3e50;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .stButton>button {
+        background-color: #6a1b9a;
+        color: white;
+        border-radius: 12px;
+        padding: 0.5em 1em;
+        font-weight: bold;
+        transition: 0.3s ease-in-out;
+    }
+
+    .stButton>button:hover {
+        background-color: #ab47bc;
+        transform: scale(1.05);
+    }
+
+    .stSelectbox, .stNumberInput, .stDateInput, .stTextInput {
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #ffffff !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .metric-box {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
 """, unsafe_allow_html=True)
 
 # ---- Title ----
