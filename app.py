@@ -94,14 +94,22 @@ if menu == "🏋️ BMI Calculator":
     st.header("🏋️‍♂️ BMI Calculator")
     col1, col2 = st.columns(2)
     with col1:
-        feet = st.number_input("Height (feet)", min_value=1, max_value=8, value=5)
-    with col2:
-        inches = st.number_input("Height (inches)", min_value=0, max_value=11, value=7)
+        height_type = st.selectbox("Height Type", ["Feet/Inches", "Centimeters"])
+    if height_type == "Feet/Inches":
+        with col1:
+            feet = st.number_input("Height (feet)", min_value=1, max_value=8, value=5)
+        with col2:
+            inches = st.number_input("Height (inches)", min_value=0, max_value=11, value=7)
+    else:
+        height_cm = st.number_input("Height (cm)", min_value=50, max_value=300, value=170)
     weight = st.number_input("Weight (kg)", min_value=1, max_value=300, value=70)
 
     if st.button("Calculate BMI"):
-        total_inches = feet * 12 + inches
-        height_m = total_inches * 0.0254
+        if height_type == "Feet/Inches":
+            total_inches = feet * 12 + inches
+            height_m = total_inches * 0.0254
+        else:
+            height_m = height_cm / 100
         bmi = weight / (height_m ** 2)
         st.markdown(f"<div class='metric-box'><h2>Your BMI: {bmi:.2f}</h2></div>", unsafe_allow_html=True)
         if bmi < 18.5:
@@ -119,25 +127,49 @@ elif menu == "📅 Age Calculator":
     birth_date = st.date_input("Enter your birthdate", min_value=date(1900, 1, 1), max_value=date.today())
     if st.button("Calculate Age"):
         today = date.today()
-        age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
-        st.markdown(f"<div class='metric-box'><h2>Your Age: {age} years</h2></div>", unsafe_allow_html=True)
+        age_years = today.year - birth_date.year
+        age_months = today.month - birth_date.month
+        age_days = today.day - birth_date.day
+        
+        # Adjust months and days if necessary
+        if age_months < 0:
+            age_years -= 1
+            age_months += 12
+        if age_days < 0:
+            if age_months == 0:
+                age_years -= 1
+                age_months = 11
+            age_days += (today.replace(year=today.year, month=today.month) - today.replace(year=today.year, month=today.month-1)).days
+        
+        st.markdown(f"<div class='metric-box'><h2>Your Age: {age_years} years, {age_months} months, {age_days} days</h2></div>", unsafe_allow_html=True)
 
 # ---- Ideal Weight ----
 elif menu == "⚖️ Ideal Weight":
     st.header("⚖️ Ideal Weight Calculator")
     gender = st.selectbox("Select Gender", ["Male", "Female"])
-    col1, col2 = st.columns(2)
-    with col1:
-        feet = st.number_input("Height (feet)", 1, 8, 5)
-    with col2:
-        inches = st.number_input("Height (inches)", 0, 11, 7)
+    height_type = st.selectbox("Height Type", ["Feet/Inches", "Centimeters"])
+    if height_type == "Feet/Inches":
+        col1, col2 = st.columns(2)
+        with col1:
+            feet = st.number_input("Height (feet)", 1, 8, 5)
+        with col2:
+            inches = st.number_input("Height (inches)", 0, 11, 7)
+    else:
+        height_cm = st.number_input("Height (cm)", min_value=50, max_value=300, value=170)
 
     if st.button("Calculate Ideal Weight"):
-        total_inches = feet * 12 + inches
-        if gender == "Male":
-            ideal_weight = 50 + 2.3 * (total_inches - 60)
+        if height_type == "Feet/Inches":
+            total_inches = feet * 12 + inches
+            if gender == "Male":
+                ideal_weight = 50 + 2.3 * (total_inches - 60)
+            else:
+                ideal_weight = 45.5 + 2.3 * (total_inches - 60)
         else:
-            ideal_weight = 45.5 + 2.3 * (total_inches - 60)
+            if gender == "Male":
+                ideal_weight = 50 + 2.3 * ((height_cm / 2.54) - 60)
+            else:
+                ideal_weight = 45.5 + 2.3 * ((height_cm / 2.54) - 60)
+        
         st.markdown(f"<div class='metric-box'><h2>Ideal Weight: {ideal_weight:.2f} kg</h2></div>", unsafe_allow_html=True)
 
 # ---- BMR ----
@@ -145,16 +177,24 @@ elif menu == "🔥 BMR Calculator":
     st.header("🔥 BMR (Calories Needed)")
     gender = st.selectbox("Gender", ["Male", "Female"])
     weight = st.number_input("Weight (kg)", 30, 200, 70)
+    height_type = st.selectbox("Height Type", ["Feet/Inches", "Centimeters"])
     col1, col2 = st.columns(2)
     with col1:
-        feet = st.number_input("Height (feet)", 1, 8, 5, key="bmr_ft")
+        if height_type == "Feet/Inches":
+            feet = st.number_input("Height (feet)", 1, 8, 5, key="bmr_ft")
+        else:
+            height_cm = st.number_input("Height (cm)", 50, 300, 170, key="bmr_cm")
     with col2:
-        inches = st.number_input("Height (inches)", 0, 11, 7, key="bmr_in")
+        if height_type == "Feet/Inches":
+            inches = st.number_input("Height (inches)", 0, 11, 7, key="bmr_in")
+    
     age = st.number_input("Age (years)", 1, 120, 25)
 
     if st.button("Calculate BMR"):
-        total_inches = feet * 12 + inches
-        height_cm = total_inches * 2.54
+        if height_type == "Feet/Inches":
+            total_inches = feet * 12 + inches
+            height_cm = total_inches * 2.54
+        height_m = height_cm / 100
         if gender == "Male":
             bmr = 10 * weight + 6.25 * height_cm - 5 * age + 5
         else:
@@ -177,13 +217,12 @@ elif menu == "💡 Health Tip":
         "🥦 Eat more veggies and fruits.",
         "🚶 Walk at least 30 minutes daily.",
         "🍫 Cut down sugar and processed foods.",
-        "🛌 Sleep 7-9 hours every night.",
+        "🛌 Sleep 6-7 hours every night.",
         "🧘 Practice mindfulness regularly.",
         "👀 Take screen breaks for your eyes.",
         "🏋️ Add strength training weekly.",
         "🥗 Balance your diet with proteins.",
         "🌞 Get sunlight—vitamin D matters!",
-        "🕒 Stick to a consistent sleep routine."
     ]
     if st.button("Get a Tip"):
         selected_tips = random.sample(tips, 3)
